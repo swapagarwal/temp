@@ -1,0 +1,233 @@
+CAPTCHA plugin for SquirrelMail
+===============================
+Ver 1.2.3, 2011/07/08
+
+
+Copyright (c) 2007-2011 Paul Lesniewski <paul@squirrelmail.org>
+
+
+
+Description
+===========
+
+This plugin places a CAPTCHA (Completely Automated Public 
+Turing to tell Computers from Humans Apart) input on the 
+login screen that is used to detect whether or not a human 
+is attempting to log in.  This helps prevent automated 
+login attacks.
+
+More than one type of CAPTCHA implementation is available 
+and more can be added with little trouble.  Each one is
+called a "backend" and has a unique name that identifies
+it in the configuration file.  Which one you use may depend
+upon personal preference as well as the available PHP 
+extensions or other software available on your server.
+
+Note that before you use this plugin, please be aware of
+the accessibility problems associated with CAPTCHA systems.
+See:  http://www.w3.org/TR/turingtest/
+      http://en.wikipedia.org/wiki/Captcha#Accessibility
+
+Also be aware that CAPTCHA technology is ever evolving as
+is the technology that is able to defeat many CAPTCHA
+implementations.  Several of the backends that come with
+this plugin are surely hackable by determined persons.
+
+Finally note that because the CAPTCHA challenge code
+(correct answer) changes every time you attempt to log
+in, brute-force attacks against this plugin are rendered 
+ineffective.  However, if you want to try and slow down
+an attacker that nevertheless continues to try to enter
+random answers, the Lockout plugin (version 1.4+) is 
+compatible with this plugin and can be used to stop 
+accepting login attempts after so many failed tries.  
+The best use of the CAPTCHA plugin might be to keep it 
+hidden from regular users unless one fails to enter a 
+correct password after several tries - the Lockout plugin 
+can also be configured to do just that - turn on the 
+CAPTCHA plugin only under this kind of circumstance when 
+it is most desirable/useful (if used in that manner,
+remember NOT to enable the CAPTCHA plugin in the 
+SquirrelMail configuration; the Lockout plugin will do
+so automatically on an as-needed basis).
+
+
+
+License
+=======
+
+This plugin is released under the GNU General Public
+License (see the file COPYING for details).
+
+
+
+Donations
+=========
+
+If you or your company make regular use of this software, please
+consider supporting Open Source development by donating to the authors
+or inquire about hiring them to consult on other projects.  Donation/
+wish list links for the author(s) are as follows:
+
+Paul Lesniewski: https://sourceforge.net/donate/index.php?user_id=508228
+
+
+
+Requirements
+============
+
+  * SquirrelMail version 1.2.9 or above
+  * Compatibility plugin version 2.0.14 or above, unless
+    using SquirrelMail 1.5.2+ or 1.4.17+
+
+
+
+Troubleshooting
+===============
+
+  * If changes to the main configuration file don't seem to be
+    having any effect, ensure that there are not two CAPTCHA
+    configuration files, one in the captcha directory and one in
+    the main SquirrelMail config directory (named "config_captcha.php").
+    The one in the main SquirrelMail config directory will always
+    override the one in the captcha directory.
+
+
+
+Help Requests
+=============
+
+Before looking for help elsewhere, please try to help yourself:
+
+  * Read the Troubleshooting section herein.
+
+  * Look to see if others have already asked about the same issue.
+    There are tips and links for the best places to do this in
+    the SquirrelMail mailing list posting guidelines:
+    http://squirrelmail.org/wiki/MailingListPostingGuidelines
+    You should also try Google or some other search engine.
+
+  * If you cannot find any information about your issue, please
+    first mail your help request to the squirrelmail-plugins
+    mailing list.  Information about it can be found here:
+    http://lists.sourceforge.net/mailman/listinfo/squirrelmail-plugins
+    You MUST read the mailing list posting guidelines (see above)
+    and include as much information about your issue (and your
+    system) as possible.  Including configtest output, any debug
+    output, the plugin configuration settings you've made and
+    anything else you can think of to make it easier to diagnose
+    your problem will get you the most useful responses.  Inquiries
+    that do not comply with the posting guidelines are liable to
+    be ignored.
+
+  * If you don't get any replies on the mailing list, you are
+    welcome to send a help request to the authors' personal
+    address(es), but please be patient with the mailing list.
+
+
+
+Adding Backends
+===============
+
+If you have a new CAPTCHA implementation, we'd love to add it.
+You need to give it a name (for example "my_captcha") and create
+a directory with the same name inside the "backends" subdirectory
+of this plugin.  Inside of your new directory, then create a file 
+named <backend name>.php (in this example, the path to your backend
+file would be "plugins/captcha/backends/my_captcha/my_captcha.php") 
+with the following functions in it:  
+
+  * <backend name>_show_input_widgets()
+    In this example, it would be called "my_captcha_show_input_widgets()".
+    This function is responsible for creating the information that will
+    be displayed on the login page - typically, this would be a CAPTCHA
+    image and textual input element.  The output MUST NOT be sent to
+    the browser, and instead returned to the caller.  Please be careful 
+    to build your output correctly for both all SquirrelMail versions 
+    (templated output is handled somewhat differently).  You should be 
+    able to copy most all of the code that is provided with any of the 
+    other backends herein.
+
+  * <backend name>_validate_captcha()
+    In this example, it would be called "my_captcha_validate_captcha()".
+    This function is responsible for testing the user's input against
+    the CAPTCHA's correct response value.  The function must return a
+    boolean TRUE or FALSE or NULL, where TRUE indicates that the user
+    entered the correct CAPTCHA response, FALSE indicates that the user's
+    input did not match the correct CAPTCHA value and NULL indicates that
+    no user input was given at all.
+
+  * <backend name>_check_configuration()
+    In this example, it would be called "my_captcha_check_configuration()".
+    This function is run during the execution of SquirrelMail's 
+    src/configtest.php script and may be used to ensure that any required 
+    dependencies or configuration values are correctly set up by the 
+    SquirrelMail administrator.  This function is entirely optional (the 
+    others are NOT), but if implemented, it must return FALSE if there 
+    are no setup problems, or TRUE if there are some issues that must be 
+    fixed by the administrator.  If there are problems, you are encouraged 
+    to use the do_err() function to display them.
+
+Also note that if your backend has any configurable settings, you can
+create two files called <backend name>_config_default.php and
+<backend_name>_config_example.php in your backend directory; the default
+config file will be loaded for you unless the user has copied the example
+config file to <backend name>_config.php, in which case that file will be
+loaded instead.  Your backend functions may then assume that the global
+values therein will always be available for use.
+
+Only GPL-licensed backends will be added to this plugin.
+
+
+
+Future Work
+===========
+
+  *  Ideas?
+
+
+
+Change Log
+==========
+
+  1.2.3  2011/07/08  Paul Lesniewski <paul@squirrelmail.org>
+   * Internationalized reCAPTCHA backend
+   * Updated verification address for the reCAPTCHA backend
+   * Implemented proxy options for the reCAPTCHA backend
+
+  1.2.2  2011/07/05  Paul Lesniewski <paul@squirrelmail.org>
+   * Updated reCAPTCHA API URIs
+
+  1.2.1  2009/08/27  Paul Lesniewski <paul@squirrelmail.org>
+   * Corrected typo in reCAPTCHA backend configuration file(s)
+     (Thanks to Velja Kalik)
+
+  1.2  2009/01/31  Paul Lesniewski <paul@squirrelmail.org>
+   * Added ability to hide/show the CAPTCHA input only for users at
+     certain IP addresses (or in IP address ranges)
+   * Added ability to show/hide the CAPTCHA input only for users logging
+     in from certain countries (Thanks to West Central Ohil Internet
+     Link, Ltd. for sponsoring this feature)
+   * Fix PHP notices under PHP 5.3.0 with b2evo, hec and hn_captcha
+   * Added ability to store main configuration file in main SquirrelMail
+     config directory (NOTE that any modified backend configuration files
+     are still kept in the associated backend directory within this plugin)
+   * Added information in Squirrel Logger event that indicates when *NO*
+     input for the CAPTCHA was given
+   * Fixed b2evo backend to prevent easy cracking of the CAPTCHA value
+     based on the image name - thanks to Guillaume Degoulet
+   * Use SM's more thorough secure connection detection in
+     reCAPTCHA backend
+   * Use improved sq_is_writable() in some backends
+   * Use improved sqsetcookie() instead of setcookie()
+   * Fixed PHP notices under SquirrelMail 1.5.2 for some backends
+
+  1.1  2008/02/12  Paul Lesniewski <paul@squirrelmail.org>
+   * Add ability to log CAPTCHA events using the Squirrel
+     Logger plugin
+
+  1.0  2007/05/30  Paul Lesniewski <paul@squirrelmail.org>
+   * Initial release
+
+
+

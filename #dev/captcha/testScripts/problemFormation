@@ -1,0 +1,3 @@
+Let the sum of black pixels between two ends of a
+segment denote the waste information. Then, we need
+to minimize the waste information.

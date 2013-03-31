@@ -1,0 +1,76 @@
+Game of Life is a cellular automaton game devised by the British Mathematician John Horton Conway. The original game is a zero player game. The evolution of it depends entirely on its input.
+
+Game of life takes place on a 2D grid. Each cell in the grid will be in one of the two possible states,
+
+    ALIVE
+    DEAD
+
+The birth or death of the cells is based on the following rules.
+
+    A cell switches from DEAD to ALIVE if its surrounded exactly by 3 living cells.
+    A cell remains alive if its surrounded by 2 or 3 living cells.
+    A cell switches from being ALIVE to DEAD if its surrounded by more than 3 living cells because of over population.
+    A cell switches from being ALIVE to DEAD if its surrounded by less than 2 cells because of under population.
+
+Each cell is surrounded by 8 cells, 4 on each of its 4 corners and 4 on its diagonals. Cells at the extreme corners have only 3 neighbors and the cells at the extreme right, left, top and bottom of the board have 5 neighboring cells. The rules mentioned above applies for these cells as well.
+
+This version of Game of Life takes place of a 29x29 grid, the top left cell is (0,0) and the bottom right cell is (28,28). It’s indexed as (row,column) like arrays in Computer Science. Two players play against each other. What differs this game from the original is that a cell has 2 states when its ALIVE. The two states being
+
+    WHITE
+    BLACK
+
+The first rule differs.
+
+    When a cell switches from being DEAD to ALIVE, it assumes the color of the majority of the 3 cells. Since 3 is odd, majority always exists.
+
+Rest of the rules follow the original version of the game.
+Initially, all the cells are in DEAD state. The first player plays WHITE and the second player plays BLACK. Each player take turns to to switch one DEAD cell to ALIVE state. The ALIVE cell takes the color assigned to the player. This goes on till each player has placed 40 cells of their respective colors on the grid. The game then starts. The alive cells of the maximum color at the end of 500 life cycles wins the game!
+
+Input Format
+
+The 1st player is represented by the character w (ascii value 119) and the 2nd player is represented by the character b (ascii value 98). First line of the input represents the character of the player. 29 lines follow. Each line has 29 characters without any spaces between them. Alive cells are represented by their respective characters and the dead cells are represented by - (ascii value 45).
+
+Output
+
+Output is 2 single spaced integers which indicates the position the cell which needs to be switched from DEAD to ALIVE.
+
+Sample Input
+
+w
+-----------------------------
+wwww-------------------------
+wwww-------------------------
+-----------------------------
+-----------------------------
+----wwww---------------------
+------wwwww------------------
+-----------------------------
+-----------------------------
+-----------------------------
+-----------------------------
+-----------------------------
+-----------------------------
+-----------------------------
+-----------------------------
+-----------------------------
+-----------------------------
+-----------------------------
+-----------------------------
+------------bbbb-------------
+--------------bbbb-----------
+----------------bbbb---------
+------------------bbbbb------
+-----------------------------
+-----------------------------
+-----------------------------
+-----------------------------
+-----------------------------
+-----------------------------
+
+Sample Output
+
+0 0
+
+Game Play
+
+Each player gets to place 40 of his cells on the grid. The game of life starts then, after 500 life cycles, each cycle follows the rules as mentioned above. The colors which occupies the maximum cells after 500 life cycles wins. 

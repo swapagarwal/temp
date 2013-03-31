@@ -1,0 +1,73 @@
+﻿Deus Ex Machina is perturbed by the progress Neo has made. It has one final test which Neo has to pass before which a truce can be reached.
+
+Neo is allowed to ask the same question, pick any 2 balls from a set of N balls and ask Oracle if they are the same or not. If they are of the same color, the Oracle answers YES and if they are not, Oracle answers NO, Oracle doesn’t lie in this game.
+
+Input Format
+
+First line contains 5 single space separated characters/Integers.
+
+1st is N which is the cardinality of the balls set.
+2nd is 1 indicating that plurality exists.
+3rd is an integer 0 indicating Oracle doesn’t lie.
+4th is the integer -1 as the colors of the balls are unknown.
+5th is an integer 1 ( ignore this as oracle doesn’t lie in this version of the game)
+
+Second line is an integer D, D lines follow. Each line shows all your previous questions to Oracle. Each question is of the format
+
+A B YES/NO 
+
+0≤A,B<N
+
+Constraints
+
+N ∈ {10, 50, 100}
+2 <= K <= 5
+L = 0 ( no Lies)
+
+A minimum of N/2 queries must be asked to Oracle before Neo makes a guess.
+Any guess of color before that would result in loosing the game.
+
+Output Format
+
+Output 2 single spaced integers which serve as indices of the balls whose colors Oracle has to compare. When Neo is sure of the ball with the plurality, output 1 integer which is the index of the ball whose color is the plurality.
+
+Sample Input
+
+50 1 0 -1 0
+2
+5 1 NO
+6 4 YES
+
+The 1st line says that there are 50 balls, plurality exists, oracle won’t lie in this game and the color of balls are unknown. 2nd line says that two queries were asked to oracle. The 1st one was whether the balls indexed at 5 and 1 are of the same color or not and the Oracle’s reply was a NO and the 2nd one was whether the balls indexed at 6 and 4 were of the same color or not and the Oracle’s reply was a YES.
+
+Sample Output
+
+5 6
+
+Neo wants to know whether the balls indexed at 5 and 6 are of the same color or not.
+
+1
+
+Neo answers that the ball indexed at 1 appears most in the set.
+
+Task
+
+Complete the function nextQuestion with takes in all the 5 integers, along with a 2-D array query where query[i][j] = 1 if a query
+
+i j 
+
+is asked and the Oracle says YES. The same value is set to 0 if the oracle says 0.
+
+Note:- query[i][j] = query[j][i]
+
+and the values is set to -1 if no query is asked for i and j.
+
+Scoring
+
+If M queries were asked to Oracle, on correct answer
+
+M < N/2, score = 0
+M >= (K-1) * (N-K/2), score = 1
+N/2 <= M < (K-1) * (N - K/2), score =( (K-1) * (N - K/2) - M )/12
+
+A minimum score of 1 is given for every correct submission. 

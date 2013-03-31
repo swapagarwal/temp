@@ -1,0 +1,1 @@
+Array:	a = [[]*n for x in xrange(n)]

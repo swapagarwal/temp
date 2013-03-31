@@ -1,0 +1,79 @@
+Dr. Jakoof is on the run! 3 cops are chasing him on a rectangular grid like road network. Cops can only move 1 step in any of the 4 directions (north, south, east or west), but Dr. Jakoof can move diagonally as well. Catch Dr. Jakoof before he escapes.
+
+But wait, there’s a rat in the house who’s helping Dr Jakoof plan his moves. Hmm.. so, the bot should be able to play as Dr Jakoof and the cop. As a cop, you must catch Dr. Jakoof within 150 moves. As Dr Jakoof, you must evade capture for utmost 150 moves.
+
+The chase happens on a 20x20 grid. All the 3 cops start at (0,0) and Dr Jakoof starts at (19,19). The top left of the grid is (0,0) and the bottom right is (19,19).
+
+Input format
+
+The first line is a character. Cops or Dr. Jakoof. A cop is represented by the character ‘C’. Dr. Jakoof is represented by the character ‘R’.The next line contains 8 integers. The first two integers are the positions of Dr Jakoof, and the rest 6 are the positions of the 3 cops.
+
+The moves are simultaneous. Cops move first and Dr Jakoof moves next and this repeats. The positions given to the cops and Dr Jakoof are the previous moves made by the cop and Dr Jakoof. More information on how the simultaneous moves are handled are given at IO format.
+
+Output format
+
+If you are a cop, output 6 single spaced integers which are the next positions of the cops 1, 2 and 3. If you are Dr Jakoof, output 2 single spaced integers which are the next position of Dr Jakoof.
+
+==========================================
+
+Cops
+
+Initial State
+
+Sample Input
+
+C
+19 19 0 0 0 0 0 0
+
+Sample Output
+
+0 1 0 1 1 0
+
+The first cop moves to (0,1) and the second cop moves to (0,1) and the third cop moves to (1,0) respectively. More than one cop can occupy the same cell.
+
+Intermediate State
+
+Sample Input
+
+C
+12 13 5 6 7 8 9 9
+
+Sample Output
+
+5 6 7 9 9 10
+
+the first cop stays in his original position and not make a move. This is a valid output. The other two cops move from (7,8) to (7,9) and (9,9) to (9,10) respectively.
+
+==========================================
+
+Dr Jakoof
+
+Initial State
+
+Sample Input
+
+R
+19 19 0 0 0 0 0 0
+
+Sample Output
+
+18 18
+
+As you can see, Dr Jakoof is allowed to move diagonally as well. Dr Jakoof moves from (19,19) to (18,18).
+
+Intermediate State
+
+Sample Input
+
+R
+12 13 3 4 5 6 7 8
+
+Sample Output
+
+12 12
+
+Dr Jakoof here makes a move from (12,13) to (12,12)
+
+Complete the function next_move that takes in a char player, the positions of Dr Jakoof and the three positions of the cop and return the positions of the cop or Dr Jakoof respectively. The bot is allowed to share data between moves by writing a file in the current directory and reading it in subsequent moves.
+
+Here is a sample C++ bot .

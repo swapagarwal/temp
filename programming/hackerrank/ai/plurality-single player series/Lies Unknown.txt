@@ -1,0 +1,71 @@
+﻿Oracle has been compromised. It is now not known how many times the Oracle can lie. But Neo has turned powerful enough to figure out that Oracle can lie no more than L lies though he wont be able to figure out the exact number of lies Oracle can tell.
+
+Neo is allowed to ask the same question, pick any 2 balls from a set of N balls and ask Oracle if they are the same or not. If they are of the same color, the Oracle answers YES and if they are not, Oracle answers NO but Oracle lies utmost L times in the game if played long enough.
+
+Input Format
+
+First line contains 5 single space separated characters/Integers.
+
+1st is N which is the cardinality of the balls set.
+2nd is 1 indicating that plurality exists.
+3rd is an integer L indicating the number of times Oracle might lie.
+4th is the integer K indicating that the balls are any of K colors.
+5th is an integer 0 indicating the oracle lies utmost L times
+
+Second line is an integer D, D lines follow. Each line shows all your previous questions to Oracle. Each question is of the format
+
+A B YES/NO 
+
+0≤A,B<N
+
+Constraints
+
+N ∈ {10, 20, 30, 40}
+k ∈ {2,3,4}
+L ∈ {1,2,3,4} lies for each of the above
+
+A minimum of (L + 1) * N/2 queries must be asked to Oracle before Neo makes a guess.
+Any guess of color before that would result in loosing the game.
+
+Output Format
+
+Output 2 single spaced integers which serve as indices of the balls whose colors Oracle has to compare. When Neo is sure of the ball with the plurality, output 1 integer which is the index of the ball whose color is the plurality.
+
+Sample Input
+
+20 1 2 2 0
+2
+2 1 NO
+3 4 NO
+
+The 1st line says that there are 20 balls, plurality exists, oracle lies utmost 2 times and balls can have any of 2 colors. 2nd line says that two queries were asked to oracle. The 1st one was whether the balls indexed at 2 and 1 are of the same color or not and the Oracle’s reply was a NO and the 2nd one was whether the balls indexed at 3 and 4 were of the same color or not and the Oracle’s reply was a NO.
+
+Sample Output
+
+5 6
+
+Neo wants to know whether the balls indexed at 5 and 6 are of the same color or not.
+
+1
+
+Neo answers that the ball indexed at 1 appears most in the set.
+
+Task
+
+Complete the function nextQuestion with takes in all the 5 integers, along with a 2-D array query where query[i][j] = 1 if a query
+
+i j 
+
+is asked and the Oracle says YES. The same value is set to 0 if the oracle says 0.
+
+Note:- query[i][j] = query[j][i]
+
+and the values is set to -1 if no query is asked for i and j.
+
+Scoring
+
+If M queries were asked to Oracle, on correct answer
+
+M < (L + 1) * N/2, score = 0
+M >= (L + 1) * (K-1) * (N-K/2), score = 1
+(L + 1) * N/2 <= M < (L + 1) * (k-1) * (N - K/2), score = ( (L + 1) * (k-1) * (N - K/2) - M)/12

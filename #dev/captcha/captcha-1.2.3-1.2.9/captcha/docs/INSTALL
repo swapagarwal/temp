@@ -1,0 +1,86 @@
+Installing the CAPTCHA Plugin
+=============================
+
+1) Start with untaring the file into the plugins directory.
+   Here is a example for the 1.0 version of the CAPTCHA plugin.
+
+  $ cd plugins
+  $ tar -zxvf captcha-1.0-1.2.9.tar.gz
+
+2) Decide if you want to store the plugin configuration file
+   in the plugin directory or in the main SquirrelMail config
+   directory.
+
+   A) To store the configuration file in the plugin directory,
+      change into the captcha directory, copy config_example.php
+      to config.php and edit config.php, making adjustments as
+      you deem necessary.
+
+     $ cd captcha
+     $ cp config_example.php config.php
+     $ vi config.php
+
+   B) To store the configuration file in the main SquirrelMail
+      config directory, change into the captcha directory,
+      copy config_example.php to ../../config/config_captcha.php
+      and edit ../../config/config_captcha.php, making
+      adjustments as you deem necessary.
+
+     $ cd captcha
+     $ cp config_example.php ../../config/config_captcha.php
+     $ vi ../../config/config_captcha.php
+
+3) Depending upon your backend selection, you may also want
+   to review the backend configuration file as well.  Most
+   backends do not require this step (try running 
+   src/configtest.php to know for certain).  If you want to
+   change any of the backend configuration settings, change
+   to the backend directory of your choice, copy its example 
+   configuration file and modify the copy.  Substitute the
+   exact name of your backend selection in the following
+   example:
+
+  $ cd backends/<backend name>
+  $ cp <backend name>_config_example.php <backend name>_config.php
+  $ vi <backend name>_config.php
+
+   Note that there are a few backends that may not have a 
+   configuration file, in which case you should skip this step.
+
+4) A few backends have an "images" directory that must be 
+   readable and writeable by the web server.  See the backend
+   requirements descriptions in the main CAPTCHA configuration
+   file to know if your backend has that requirement.  If you
+   choose one of those backends, remaining in the backend 
+   directory, make sure the images directory has the correct
+   ownership and permissions so that the web server has full
+   access to it.  In a *nix style operating system, one way 
+   to accomplish this is to obtain the name of the group that
+   the web server runs under (in this example, we use "apache",
+   but other common group names are "nobody", "http", "wheel",
+   etc.):
+
+  $ chgrp apache images
+  $ chmod 770 images
+
+5) If using the Lockout plugin to enable the CAPTCHA plugin 
+   only when needed (after some number of failed login
+   attempts), skip to step number 7.
+
+6) Go to your config directory and run conf.pl.  Choose
+   option 8 and move the plugin from the "Available Plugins"
+   category to the "Installed Plugins" category.  Save and
+   exit.
+
+  $ cd ../../../../config/
+  $ ./conf.pl
+
+7) If not being used with SquirrelMail 1.4.10+ or 1.5.2+,
+   please verify that you have the "Compatibility" plugin
+   installed (but not necessarily activated).
+
+8) Translations are not included in this package.  To get a
+   translation, download the language pack needed from:
+
+       http://www.squirrelmail.org/download.php
+

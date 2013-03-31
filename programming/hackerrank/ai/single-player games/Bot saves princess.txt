@@ -1,0 +1,30 @@
+Princess Peach is trapped in one of the four corners of a square grid. You are in the center of the grid and can move one step at a time in any of the four directions. Can you rescue the princess?
+
+Input format
+
+The first line contains an odd integer M (< 100) denoting the size of the grid. This is followed by an MxM grid. Each cell is denoted by ‘-‘ (ascii value: 45). The bot position is denoted by ‘m’ and the princess position is denoted by ‘p’.
+
+The top left of the grid is indexed at (0,0) and the bottom right is indexed at (M-1,M-1)
+
+Output format
+
+Output each move you take to rescue the princess in one go. Moves must be separated by ‘\n’ a newline. The valid outputs are LEFT or RIGHT or UP or DOWN.
+
+Sample input
+
+3
+---
+-m-
+p--
+
+Sample output
+
+DOWN
+LEFT
+
+Task
+
+Complete the function displayPathtoPrincess which takes in two parameters - an integer M, the character array grid and output moves (LEFT, RIGHT, UP or DOWN) on consecutive lines to rescue/reach the princess. The goal is to reach the princess in as few moves as possible
+
+Scoring
+Your score is for every testcase would be (MxM - moves made to rescue the princess)/10. Where M is the size of the grid ( 3x3 in the sample testcase). 
