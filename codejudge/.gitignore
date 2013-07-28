@@ -1,0 +1,4 @@
+# Codejudge .gitignore
+*~
+dbinfo.php
+*.class
