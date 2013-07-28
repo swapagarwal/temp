@@ -1,1 +1,0 @@
-solution.c:1:1: error: expected identifier or ‘(’ before ‘for’

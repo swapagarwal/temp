@@ -1,1 +1,0 @@
-/opt/lampp/htdocs/codejudge/codejudge-compiler/stage/1/compile.sh: 2: /opt/lampp/htdocs/codejudge/codejudge-compiler/stage/1/compile.sh: javac: not found

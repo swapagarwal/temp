@@ -1,1 +1,0 @@
-for i in range(input()): print "hello wrld\n"
